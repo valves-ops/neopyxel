@@ -5,13 +5,13 @@ import itertools
 from collections.abc import Iterable
 
 class NeopyxelRelay():
-    def __init__(self, serial_port='COM4'):
+    def __init__(self, serial_port=None):
         comports = list(serial.tools.list_ports.comports())
-        for comport in comports:
-            if comport.pid != None:
-                serial_port = comport.device
+        if serial_port == None:
+            for comport in comports:
+                if comport.pid != None:
+                    serial_port = comport.device
         self.serial_port = serial_port
-        # 28800
         self.conn = serial.Serial(self.serial_port, 28800, writeTimeout = 0)
         time.sleep(1.8)
         self._stripes = []
@@ -40,6 +40,7 @@ class NeopyxelRelay():
 
 class Stripe:
     counter = itertools.count()
+
     def __init__(self, NUMPIXELS, PIN, conn):
         self.NUMPIXELS = NUMPIXELS
         self.PIN = PIN

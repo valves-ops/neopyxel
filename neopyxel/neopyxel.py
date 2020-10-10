@@ -4,6 +4,7 @@ from collections.abc import Iterable
 import serial
 import serial.tools.list_ports
 
+
 class NeopyxelRelay():
     def __init__(self, serial_port=None):
         comports = list(serial.tools.list_ports.comports())
@@ -69,7 +70,7 @@ class Stripe:
     @property
     def stripe_number(self):
         return self.__stripe_number
-    
+
     @property
     def num_pixels(self):
         return self.__NUMPIXELS

@@ -1,16 +1,20 @@
-import neopyxel
+from neopyxel import NeopyxelRelay
 import time
 
-relay = neopyxel.NeopyxelRelay()
+relay = NeopyxelRelay()
 relay.add_stripe(30, 4)
 relay.add_stripe(30, 5)
 relay.add_stripe(30, 6)
 
 relay.set_pixel_color(list(range(0, 30)), (0, 0, 0))
 relay.show()
-time.sleep(1)
+#time.sleep(1)
 relay.set_pixel_color(list(range(0, 30)), (240, 80, 30))
 relay.show()
+
+# for stripe in relay.stripes:
+#     for pixel in stripe.pixels:
+#         print(pixel)
 
 # for stripe in relay._stripes:
 #     print(stripe.stripe_number)

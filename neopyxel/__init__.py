@@ -1,1 +1,1 @@
-from neopyxel import NeopyxelRelay
+from neopyxel.neopyxel import NeopyxelRelay

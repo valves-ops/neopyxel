@@ -54,6 +54,7 @@ class Stripe:
 
     def __init__(self, NUMPIXELS, PIN, conn):
         self.NUMPIXELS = NUMPIXELS
+        self.pixels = [VirtualPixel()]*self.NUMPIXELS
         self.PIN = PIN
         self.stripe_number = next(Stripe.counter)
         self.conn = conn
@@ -72,10 +73,30 @@ class Stripe:
             cmd[4] = color[1]
             cmd[5] = color[2]
             self.conn.write(cmd)
-            time.sleep(0.01)
+            self.pixels[pixel_number].set_pixel_color(color)
+            # time.sleep(0.01)
 
     def show(self):
         cmd = bytearray(2)
         cmd[0] = self.stripe_number
         cmd[1] = 2  # Show Command code
         self.conn.write(cmd)
+        for pixel in self.pixels:
+            pixel.show()
+
+
+class VirtualPixel:
+    def __init__(self, color=(0, 0, 0)):
+        self.displayed_color = color
+        self.buffer_color = color
+        self.coherent = True
+
+    def set_pixel_color(self, color):
+        self.buffer_color = color
+        if self.buffer_color != self.displayed_color:
+            self.coherent = False
+
+    def show(self):
+        if not self.coherent:
+            self.displayed_color = self.buffer_color
+            self.coherent = True

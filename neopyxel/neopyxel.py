@@ -16,6 +16,7 @@ class NeopyxelRelay():
         self.__conn = serial.Serial(self.__serial_port, 28800, writeTimeout=0)
         time.sleep(1.8)
         self.__stripes = []
+        self.__current_effect = None
 
     @property
     def stripes(self):
@@ -31,16 +32,18 @@ class NeopyxelRelay():
         self.__conn.write(cmd)
 
     def set_pixel_color(self, pixel_number, color):
-        if isinstance(pixel_number, Iterable):
-            for pixel in pixel_number:
-                self.set_pixel_color(pixel, color)
-        else:
-            for stripe in self.__stripes:
-                stripe.set_pixel_color(pixel_number, color)
+        for stripe in self.__stripes:
+            stripe.set_pixel_color(pixel_number, color)
 
     def show(self):
         for stripe in self.__stripes:
             stripe.show()
+
+    def execute_effect(self, EffectClass):
+        if self.__current_effect is not None:
+            self.__current_effect.stop()
+        self.__current_effect = EffectClass(self)
+        self.__current_effect.start()
 
     def flush_stripes(self):
         cmd = bytearray(4)

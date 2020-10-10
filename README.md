@@ -1,2 +1,2 @@
 # neopyxel
-Lib to allow easy control of Adafruit's Neopixel LED stripes with Python and an Arduino relay.
+Python library to allow an easy control of Adafruit's Neopixel LED stripes through an Arduino relay via serial connection.

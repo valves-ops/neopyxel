@@ -8,9 +8,9 @@ from collections.abc import Iterable
 class NeopyxelRelay():
     def __init__(self, serial_port=None):
         comports = list(serial.tools.list_ports.comports())
-        if serial_port == None:
+        if serial_port is None:
             for comport in comports:
-                if comport.pid != None:
+                if comport.pid is not None:
                     serial_port = comport.device
         self.serial_port = serial_port
         self.conn = serial.Serial(self.serial_port, 28800, writeTimeout=0)

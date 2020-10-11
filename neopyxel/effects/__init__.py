@@ -1,1 +1,1 @@
-from neopyxel.effects.steady_ambar import SteadyAmbar
+from neopyxel.effects.steady_color import SteadyColor

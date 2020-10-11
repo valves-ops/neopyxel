@@ -39,10 +39,10 @@ class NeopyxelRelay():
         for stripe in self.__stripes:
             stripe.show()
 
-    def execute_effect(self, EffectClass):
+    def execute_effect(self, EffectClass, **kwargs):
         if self.__current_effect is not None:
             self.__current_effect.stop()
-        self.__current_effect = EffectClass(self)
+        self.__current_effect = EffectClass(self, **kwargs)
         self.__current_effect.start()
 
     def flush_stripes(self):
@@ -61,7 +61,7 @@ class Stripe:
 
     def __init__(self, NUMPIXELS, PIN, conn):
         self.__NUMPIXELS = NUMPIXELS
-        self.__pixels = [VirtualPixel()]*self.__NUMPIXELS
+        self.__pixels = [VirtualPixel() for i in range(self.__NUMPIXELS)]
         self.__PIN = PIN
         self.__stripe_number = next(Stripe.counter)
         self.__conn = conn
@@ -87,25 +87,28 @@ class Stripe:
             for pixel in pixel_number:
                 self.set_pixel_color(pixel, color)
         else:
-            cmd = bytearray(6)
-            cmd[0] = self.stripe_number
-            # Set Pixel Color Command decode
-            cmd[1] = 1
-            cmd[2] = pixel_number
-            cmd[3] = color[0]
-            cmd[4] = color[1]
-            cmd[5] = color[2]
-            self.__conn.write(cmd)
-            self.__pixels[pixel_number].set_pixel_color(color)
-            time.sleep(0.01)
+            if self.__pixels[pixel_number].buffer_color != color:
+                cmd = bytearray(6)
+                cmd[0] = self.stripe_number
+                # Set Pixel Color Command decode
+                cmd[1] = 1
+                cmd[2] = pixel_number
+                cmd[3] = color[0]
+                cmd[4] = color[1]
+                cmd[5] = color[2]
+                self.__conn.write(cmd)
+                self.__pixels[pixel_number].set_pixel_color(color)
+                time.sleep(0.01)
 
     def show(self):
-        cmd = bytearray(2)
-        cmd[0] = self.stripe_number
-        cmd[1] = 2  # Show Command code
-        self.__conn.write(cmd)
-        for pixel in self.pixels:
-            pixel.show()
+        pixels_coherent = all([pixel.is_coherent for pixel in self.pixels])
+        if not pixels_coherent:
+            cmd = bytearray(2)
+            cmd[0] = self.stripe_number
+            cmd[1] = 2  # Show Command code
+            self.__conn.write(cmd)
+            for pixel in self.pixels:
+                pixel.show()
 
 
 class VirtualPixel:
@@ -113,6 +116,18 @@ class VirtualPixel:
         self.__displayed_color = color
         self.__buffer_color = color
         self.__coherent = True
+
+    @property
+    def is_coherent(self):
+        return self.__coherent
+
+    @property
+    def displayed_color(self):
+        return self.__displayed_color
+
+    @property
+    def buffer_color(self):
+        return self.__buffer_color
 
     def set_pixel_color(self, color):
         self.__buffer_color = color

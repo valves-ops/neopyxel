@@ -18,17 +18,10 @@ class Effect(ABC):
     def stop(self):
         self.stop_transition.execute()
 
-    # @abstractmethod
-    # def start_transition(self):
-    #     pass
-
     @abstractmethod
     def effect_main(self):
         pass
 
-    # @abstractmethod
-    # def stop_transition(self):
-    #     pass
 
 
 class Transition(ABC):

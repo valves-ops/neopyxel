@@ -8,11 +8,11 @@ class FromCenter(Transition):
         self.target_color = kwargs['color']
 
     def execute(self):
-        for p, i in zip(range(15, 30), range(15, 0, -1)):
-            self.relay.set_pixel_color(p, self.target_color)
-            self.relay.set_pixel_color(i, self.target_color)
+        for p, i in zip(range(50, 100), range(50, 0, -1)):
+            self.relay.set_segment_color(p/100, 0.01, self.target_color)
+            self.relay.set_segment_color(i/100, 0.01, self.target_color)
             self.relay.show()
-            time.sleep(0.05)
+            time.sleep(0.02)
 
 
 class FromBorders(Transition):
@@ -21,8 +21,8 @@ class FromBorders(Transition):
         self.target_color = kwargs['color']
 
     def execute(self):
-        for p, i in zip(range(0, 16), range(29, 14, -1)):
-            self.relay.set_pixel_color(p, self.target_color)
-            self.relay.set_pixel_color(i, self.target_color)
+        for p, i in zip(range(0, 51), range(100, 50, -1)):
+            self.relay.set_segment_color(p/100, 0.01, self.target_color)
+            self.relay.set_segment_color(i/100, 0.01, self.target_color)
             self.relay.show()
-            time.sleep(0.05)
+            time.sleep(0.02)

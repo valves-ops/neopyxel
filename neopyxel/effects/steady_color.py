@@ -21,8 +21,9 @@ class SteadyColor(Effect):
 
     def effect_main(self):
         super().effect_main()
-        # self.relay.set_pixel_color(
-        #     list(range(self.relay.stripes[0].num_pixels)),
-        #     self.target_color
-        # )
-        # self.relay.show()
+        self.relay.set_segment_color(
+            segment_position=0,
+            segment_length=1,
+            color=self.target_color
+        )
+        self.relay.show()

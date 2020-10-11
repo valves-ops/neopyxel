@@ -17,7 +17,7 @@ ambar = (240, 80, 30)
 purple = (255, 0, 255)
 print([str(pixel) for pixel in relay.stripes[1].pixels])
 relay.execute_effect(SteadyColor,
-                     StartTransition=expand.FromBorders,
+                     StartTransition=expand.FromCenter,
                      color=ambar)
 print([str(pixel) for pixel in relay.stripes[1].pixels])
 

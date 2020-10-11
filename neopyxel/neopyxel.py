@@ -35,6 +35,10 @@ class NeopyxelRelay():
         for stripe in self.__stripes:
             stripe.set_pixel_color(pixel_number, color)
 
+    def set_segment_color(self, segment_position, segment_length, color):
+        for stripe in self.stripes:
+            stripe.set_segment_color(segment_position, segment_length, color)
+
     def show(self):
         for stripe in self.__stripes:
             stripe.show()
@@ -98,7 +102,7 @@ class Stripe:
                 cmd[5] = color[2]
                 self.__conn.write(cmd)
                 self.__pixels[pixel_number].set_pixel_color(color)
-                time.sleep(0.01)
+                # time.sleep(0.01)
 
     def set_segment_color(self, segment_position, segment_length, color):
         pixel_start = self.__get_start_pixel(segment_position)

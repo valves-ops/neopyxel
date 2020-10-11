@@ -1,2 +1,7 @@
 neopyxel/__pycache__
+neopyxel/__pycache__/*
 .vscode/
+neopyxel/transitions/__pycache__/
+neopyxel/transitions/__pycache__/*
+neopyxel/effects/__pycache__/
+neopyxel/effects/__pycache__/*

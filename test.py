@@ -1,6 +1,6 @@
 from neopyxel import NeopyxelRelay
 import time
-from neopyxel.effects import SteadyColor
+from neopyxel.effects import SteadyColor, Fireplace
 from neopyxel.transitions import expand
 
 relay = NeopyxelRelay()
@@ -15,10 +15,9 @@ relay.add_stripe(30, 6)
 # relay.show()
 ambar = (240, 80, 30)
 purple = (255, 0, 255)
-print([str(pixel) for pixel in relay.stripes[1].pixels])
-relay.execute_effect(SteadyColor,
-                     StartTransition=expand.FromCenter,
-                     color=ambar)
+fireplace_base = (252, 72, 12)
+# print([str(pixel) for pixel in relay.stripes[1].pixels])
+relay.execute_effect(Fireplace)
 print([str(pixel) for pixel in relay.stripes[1].pixels])
 
 # relay.execute_effect(SteadyAmbar)

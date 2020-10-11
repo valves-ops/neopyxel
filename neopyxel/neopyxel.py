@@ -100,6 +100,25 @@ class Stripe:
                 self.__pixels[pixel_number].set_pixel_color(color)
                 time.sleep(0.01)
 
+    def set_segment_color(self, segment_position, segment_length, color):
+        pixel_start = self.__get_start_pixel(segment_position)
+        num_pixels = self.__get_length_in_pixels(segment_length)
+        num_pixels = min(pixel_start+num_pixels, self.__NUMPIXELS)
+        pixels = list(range(pixel_start, num_pixels))
+        self.set_pixel_color(pixels, color)
+
+    def __get_start_pixel(self, segment_position):
+        position = round(self.__NUMPIXELS*segment_position)
+        position = min(position, self.__NUMPIXELS-1)
+        position = max(position, 0)
+        return position
+
+    def __get_length_in_pixels(self, segment_length):
+        length = round(self.__NUMPIXELS*segment_length)
+        length = min(length, self.__NUMPIXELS)
+        length = max(length, 1)
+        return length
+
     def show(self):
         pixels_coherent = all([pixel.is_coherent for pixel in self.pixels])
         if not pixels_coherent:

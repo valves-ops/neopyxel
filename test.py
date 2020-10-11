@@ -16,7 +16,9 @@ relay.add_stripe(30, 6)
 ambar = (240, 80, 30)
 purple = (255, 0, 255)
 print([str(pixel) for pixel in relay.stripes[1].pixels])
-relay.execute_effect(SteadyColor, StartTransition=expand.FromBorders, color=ambar)
+relay.execute_effect(SteadyColor,
+                     StartTransition=expand.FromBorders,
+                     color=ambar)
 print([str(pixel) for pixel in relay.stripes[1].pixels])
 
 # relay.execute_effect(SteadyAmbar)
@@ -26,4 +28,3 @@ print([str(pixel) for pixel in relay.stripes[1].pixels])
 
 # TODO
 # abstract pixel with stripe % segments
-# break effects into main and transition

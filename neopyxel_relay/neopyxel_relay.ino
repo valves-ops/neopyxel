@@ -26,7 +26,7 @@ byte stripes_array_size = 0;
 
 
 void setup(){
-  Serial.begin(28800);
+  Serial.begin(12800);
 }
 
 void loop(){

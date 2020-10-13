@@ -18,6 +18,7 @@ purple = (255, 0, 255)
 fireplace_base = (252, 72, 12)
 # print([str(pixel) for pixel in relay.stripes[1].pixels])
 relay.execute_effect(Fireplace)
+# relay.execute_effect(SteadyColor, color=ambar)
 print([str(pixel) for pixel in relay.stripes[1].pixels])
 
 # relay.execute_effect(SteadyAmbar)

@@ -29,5 +29,6 @@ class Fireplace(Effect):
                     stripe.set_segment_color(position/30, 0.03, flicked_color)
             self.relay.show()
             print('loop')
-            time.sleep(random.randint(25, 100)*1e-3 + 0.01)
-            #time.sleep(0.01)
+            print(self.relay.conn.out_waiting)
+            # time.sleep(random.randint(25, 100)*1e-3 + 0.01)
+            time.sleep(0.1)

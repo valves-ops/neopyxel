@@ -7,6 +7,8 @@ from neopyxel.transitions import expand
 class Raining(Effect):
     def __init__(self, relay):
         super().__init__(relay)
+        # self.base_color = (4, 4, 6)
+        # self.lightning_color = (50, 50, 50)
         self.base_color = (80, 80, 120)
         self.lightning_color = (250, 250, 250)
         self.flicker_max = 50
@@ -34,10 +36,9 @@ class Raining(Effect):
                                      max(0, self.base_color[2]-flicker))
                     stripe.set_segment_color(position/30, 0.03, flicked_color)
             self.relay.show()
+
             will_light = (random.uniform(0, 1) > 0.96)
-            will_light = (random.uniform(0, 1) > 0.80)
             if will_light:
-                print('lightning')
                 # Lightning Dynamic Parameters
                 lightning_width = random.randint(
                     3, self.max_lightning_width*100)/100

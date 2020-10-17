@@ -26,7 +26,8 @@ byte stripes_array_size = 0;
 
 
 void setup(){
-  Serial.begin(12800);
+  Serial.begin(28800);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop(){
@@ -35,7 +36,7 @@ void loop(){
    Serial.readBytes(cmd_buffer, 2);
    byte LED_STRIPE = cmd_buffer[0];
    byte cmd = cmd_buffer[1];
-   
+
    if (cmd == SETPIXELCOLOR) {
      Serial.readBytes(arg_buffer, 4);
      byte p = arg_buffer[0];

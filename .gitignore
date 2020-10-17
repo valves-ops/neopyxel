@@ -5,3 +5,7 @@ neopyxel/transitions/__pycache__/
 neopyxel/transitions/__pycache__/*
 neopyxel/effects/__pycache__/
 neopyxel/effects/__pycache__/*
+build/
+dist/
+neopyxel.egg-info/
+neopyxel/neopyxel.egg-info/

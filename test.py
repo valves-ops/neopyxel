@@ -14,8 +14,11 @@ purple = (255, 0, 255)
 fireplace_base = (252, 72, 12)
 
 try:
-    relay.execute_effect(Fireplace)
-    # relay.execute_effect(SteadyAmbar)
+    # relay.execute_effect(Fireplace)
+    relay.execute_effect(SteadyColor, 
+                         color=ambar,
+                         StartTransition=expand.FromCenter,
+                         StopTransition=expand.FromBorders)
     while True:
         time.sleep(1)
 except KeyboardInterrupt:

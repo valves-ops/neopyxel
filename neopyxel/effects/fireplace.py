@@ -3,6 +3,7 @@ import time
 from neopyxel.effect import Effect
 from neopyxel.transitions import expand
 
+from timeit import default_timer as timer
 
 class Fireplace(Effect):
     def __init__(self, relay):
@@ -28,7 +29,3 @@ class Fireplace(Effect):
                                      max(0, self.base_color[2]-flicker))
                     stripe.set_segment_color(position/30, 0.03, flicked_color)
             self.relay.show()
-            print('loop')
-            print(self.relay.conn.out_waiting)
-            # time.sleep(random.randint(25, 100)*1e-3 + 0.01)
-            time.sleep(0.1)

@@ -53,6 +53,10 @@ class NeopyxelRelay():
         self.__current_effect = EffectClass(self, **kwargs)
         self.__current_effect.start()
 
+    def stop_effect(self):
+        if self.__current_effect is not None:
+            self.__current_effect.stop()
+
     def flush_stripes(self):
         cmd = bytearray(4)
         cmd[0] = 0

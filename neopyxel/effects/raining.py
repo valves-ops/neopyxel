@@ -49,23 +49,23 @@ class Raining(Effect):
 
                 # First Blaze
                 stripe.set_segment_color(lightning_start_pixel,
-                                            lightning_width, self.lightning_color)
+                                         lightning_width, self.lightning_color)
                 stripe.show()
                 time.sleep(self.first_lightning_duration)
 
                 # Blaze Interval
                 stripe.set_segment_color(lightning_start_pixel,
-                                            lightning_width, (0, 0, 0))
+                                         lightning_width, (0, 0, 0))
                 stripe.show()
                 time.sleep(self.interval_duration)
 
                 # Second Blaze
                 stripe.set_segment_color(lightning_start_pixel,
-                                            lightning_width, self.lightning_color)
+                                         lightning_width, self.lightning_color)
                 stripe.show()
                 time.sleep(self.second_lightning_duration)
 
                 stripe.set_segment_color(lightning_start_pixel,
-                                            lightning_width, self.base_color)
+                                         lightning_width, self.base_color)
                 stripe.show()
                 self.relay.show()

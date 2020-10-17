@@ -1,6 +1,6 @@
 from neopyxel import NeopyxelRelay
 import time
-from neopyxel.effects import SteadyColor, Fireplace
+from neopyxel.effects import SteadyColor, Fireplace, Raining
 from neopyxel.transitions import expand
 from timeit import default_timer as timer
 

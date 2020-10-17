@@ -15,7 +15,7 @@ class Effect(ABC):
 
     def start(self):
         self.start_transition.execute()
-        self.effect_main_thread = threading.Thread(target=self.effect_main())
+        self.effect_main_thread = threading.Thread(target=self.effect_main)
         self.effect_main_thread.start()
 
     def stop(self):

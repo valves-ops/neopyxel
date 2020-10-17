@@ -13,7 +13,7 @@ class NeopyxelRelay():
                 if comport.pid is not None:
                     serial_port = comport.device
         self.__serial_port = serial_port
-        self.__conn = serial.Serial(self.__serial_port, 12800, writeTimeout=0)
+        self.__conn = serial.Serial(self.__serial_port, 28800, writeTimeout=0)
         time.sleep(1.8)
         self.__stripes = []
         self.__current_effect = None
@@ -106,9 +106,8 @@ class Stripe:
                 cmd[5] = color[2]
                 self.__conn.write(cmd)
                 self.__pixels[pixel_number].set_pixel_color(color)
-                while self.__conn.out_waiting > 0:
-                    x = 1
-                # time.sleep(0.01)
+                while self.__conn.out_waiting > 0: 
+                    continue # waiting for command to be read 
 
     def set_segment_color(self, segment_position, segment_length, color):
         pixel_start = self.__get_start_pixel(segment_position)
@@ -138,6 +137,7 @@ class Stripe:
             self.__conn.write(cmd)
             for pixel in self.pixels:
                 pixel.show()
+            time.sleep(0.01)
 
 
 class VirtualPixel:

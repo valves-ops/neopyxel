@@ -3,7 +3,6 @@ import time
 from neopyxel.effect import Effect
 from neopyxel.transitions import expand
 
-from timeit import default_timer as timer
 
 class Fireplace(Effect):
     def __init__(self, relay):

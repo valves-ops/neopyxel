@@ -36,6 +36,7 @@ class NeopyxelRelay():
         return self.__conn
 
     def add_stripe(self, NUMPIXELS, PIN):
+        self.stop_effect()
         self.__stripes.append(Stripe(NUMPIXELS, PIN, self.__conn))
         cmd = bytearray(4)
         cmd[0] = 0
@@ -69,11 +70,13 @@ class NeopyxelRelay():
             self.__current_effect.stop()
 
     def flush_stripes(self):
+        self.stop_effect()
         cmd = bytearray(2)
         cmd[0] = 0
         cmd[1] = 4
         self.__conn.write(cmd)
         logging.debug('FLUSH command sent: %s' % (str(cmd.hex())))
+        self.__stripes = []
 
     def __del__(self):
         self.flush_stripes()

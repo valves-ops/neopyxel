@@ -3,10 +3,19 @@ import itertools
 from collections.abc import Iterable
 import serial
 import serial.tools.list_ports
+import logging
 
 
 class NeopyxelRelay():
-    def __init__(self, serial_port=None):
+    def __init__(self, serial_port=None, debug=False):
+        if debug:
+            level = logging.DEBUG
+        else:
+            level = logging.CRITICAL
+        logging.basicConfig(format='%(asctime)s %(message)s',
+                            datefmt='%m/%d/%Y %I:%M:%S %p',
+                            level=level)
+        logging.debug('NEOPYXEL DEBUG MODE ON')
         comports = list(serial.tools.list_ports.comports())
         if serial_port is None:
             for comport in comports:
@@ -34,6 +43,8 @@ class NeopyxelRelay():
         cmd[2] = NUMPIXELS
         cmd[3] = PIN
         self.__conn.write(cmd)
+        logging.debug('ADD_STRIPE command sent: %s %s' %
+                      (str(cmd[:2].hex()), str(cmd[2:].hex())))
 
     def set_pixel_color(self, pixel_number, color):
         for stripe in self.__stripes:
@@ -58,10 +69,11 @@ class NeopyxelRelay():
             self.__current_effect.stop()
 
     def flush_stripes(self):
-        cmd = bytearray(4)
+        cmd = bytearray(2)
         cmd[0] = 0
         cmd[1] = 4
         self.__conn.write(cmd)
+        logging.debug('FLUSH command sent: %s' % (str(cmd.hex())))
 
     def __del__(self):
         self.flush_stripes()
@@ -110,6 +122,8 @@ class Stripe:
                 cmd[5] = color[2]
                 self.__conn.write(cmd)
                 self.__pixels[pixel_number].set_pixel_color(color)
+                logging.debug('SET_PIXEL_COLOR command sent: %s %s' %
+                              (str(cmd[:3].hex()), str(cmd[3:].hex())))
                 while self.__conn.out_waiting > 0:
                     continue  # waiting for command to be read
 
@@ -142,6 +156,7 @@ class Stripe:
             for pixel in self.pixels:
                 pixel.show()
             time.sleep(0.01)
+            logging.debug('SHOW command sent: %s' % (str(cmd.hex())))
 
 
 class VirtualPixel:

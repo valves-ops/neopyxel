@@ -2,14 +2,16 @@ from neopyxel import NeopyxelRelay
 import time
 from neopyxel.effects import SteadyColor, Fireplace, Raining
 from neopyxel.transitions import expand
+from neopyxel.backend import ArduinoRelayBackend
 import sys
 
-relay = NeopyxelRelay(debug=True)
+relay = NeopyxelRelay(Backend=ArduinoRelayBackend, debug=True)
 relay.add_stripe(30, 4)
 relay.add_stripe(30, 5)
 relay.add_stripe(30, 6)
 
 ambar = (240, 80, 30)
+whiter_ambar = (240, 120, 40)
 white = (255, 255, 255)
 purple = (255, 0, 255)
 fireplace_base = (252, 72, 12)

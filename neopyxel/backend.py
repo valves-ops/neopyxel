@@ -28,7 +28,7 @@ class NeopyxelBackend(ABC):
 
 class ArduinoRelayBackend(NeopyxelBackend):
     def __init__(self, serial_port=None):
-        # super().__init__()
+        super().__init__()
         comports = list(serial.tools.list_ports.comports())
         if serial_port is None:
             for comport in comports:

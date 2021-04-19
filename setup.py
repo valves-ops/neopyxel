@@ -36,13 +36,12 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.1',  # Required
+    version='1.1.0',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description=
-    'High-level interface to control neopixel \
+    description='High-level interface to control neopixel \
     led stripes with an arduino as relay',  # Optional
 
     # This is an optional longer description of your project that represents
@@ -118,7 +117,7 @@ setup(
 
     # When your source code is in a subdirectory under the project root, e.g.
     # `src/`, it is necessary to specify the `package_dir` argument.
-    #package_dir={'': 'neopyxel'},  # Optional
+    # package_dir={'': 'neopyxel'},  # Optional
 
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().

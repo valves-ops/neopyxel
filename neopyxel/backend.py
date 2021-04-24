@@ -86,6 +86,9 @@ class RaspberryPiBackend(NeopyxelBackend):
     def __init__(self, serial_port=None):
         from rpi_ws281x import ws, Color, Adafruit_NeoPixel
         self.strips = []
+        self.strip_types = {
+            'WS2811_STRIP_GRB' : ws.WS2811_STRIP_GRB
+        }
         # TODO: auto DMA channel selector
         # TODO: pin, DMA, pwm channel collision
 
@@ -113,7 +116,7 @@ class RaspberryPiBackend(NeopyxelBackend):
             INVERT, 
             BRIGHTNESS,
             PWM_CHANNEL, 
-            STRIP_TYPE
+            self.strip_types[WS2811_STRIP_GRB]
         )
         self.strips.append(strip)
 

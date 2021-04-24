@@ -1,9 +1,11 @@
 from abc import ABC, abstractmethod
-import time
+import time, os
 import logging
 import serial
 import serial.tools.list_ports
 
+if os.uname().nodename == 'raspberrypi':
+    from rpi_ws281x import ws, Color, Adafruit_NeoPixel
 
 class NeopyxelBackend(ABC):
     def __init__(self, *args, **kwargs):
@@ -84,7 +86,6 @@ class ArduinoRelayBackend(NeopyxelBackend):
 
 class RaspberryPiBackend(NeopyxelBackend):
     def __init__(self, serial_port=None):
-        from rpi_ws281x import ws, Color, Adafruit_NeoPixel
         self.strips = []
         self.strip_types = {
             'WS2811_STRIP_GRB' : ws.WS2811_STRIP_GRB

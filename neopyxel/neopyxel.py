@@ -24,7 +24,7 @@ class NeopyxelRelay():
     def add_stripe(self, NUMPIXELS, PIN, **kwargs):
         self.stop_effect()
         self.__stripes.append(Stripe(NUMPIXELS, PIN, self.backend))
-        self.backend.add_stripe(NUMPIXELS, PIN)
+        self.backend.add_stripe(NUMPIXELS, PIN, **kwargs)
 
     def set_pixel_color(self, pixel_number, color):
         for stripe in self.__stripes:

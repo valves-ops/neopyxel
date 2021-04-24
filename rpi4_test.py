@@ -5,9 +5,13 @@ from neopyxel.transitions import expand
 from neopyxel.backend import ArduinoRelayBackend, RaspberryPiBackend
 import sys
 
+print('Starting test')
 relay = NeopyxelRelay(Backend=RaspberryPiBackend, debug=True)
+print('Creating first strip')
 relay.add_stripe(30, 13, PWM_CHANNEL=1, DMA_CHANNEL=5)
+print('Creating second strip')
 relay.add_stripe(30, 18, PWM_CHANNEL=0, DMA_CHANNEL=6)
+print('Creating third strip')
 relay.add_stripe(30, 19, PWM_CHANNEL=1, DMA_CHANNEL=10)
 
 ambar = (240, 80, 30)
@@ -16,17 +20,24 @@ white = (255, 255, 255)
 purple = (255, 0, 255)
 fireplace_base = (252, 72, 12)
 cyberpunk = (19, 62, 124)
-try:
-    # relay.execute_effect(Fireplace)
-    relay.execute_effect(SteadyColor,
-                         color=ambar,
-                         StartTransition=expand.FromCenter,
-                         StopTransition=expand.FromBorders
-                        )
-    while True:
-        time.sleep(1)
-except KeyboardInterrupt:
-    relay.stop_effect()
-    relay.flush_stripes()
-    print("Ctrl+C pressed...exit")
-    sys.exit(1)
+red = (255, 0, 0)
+
+print('Setting color of first strip to red')
+for i in range(30):
+    print('Setting pixel ', i)
+    relay.__stripes[0].set_pixel_color(i, red)
+
+# try:
+#     # relay.execute_effect(Fireplace)
+#     relay.execute_effect(SteadyColor,
+#                          color=ambar,
+#                          StartTransition=expand.FromCenter,
+#                          StopTransition=expand.FromBorders
+#                         )
+#     while True:
+#         time.sleep(1)
+# except KeyboardInterrupt:
+#     relay.stop_effect()
+#     relay.flush_stripes()
+#     print("Ctrl+C pressed...exit")
+#     sys.exit(1)

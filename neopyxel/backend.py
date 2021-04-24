@@ -117,7 +117,7 @@ class RaspberryPiBackend(NeopyxelBackend):
             INVERT, 
             BRIGHTNESS,
             PWM_CHANNEL, 
-            self.strip_types[WS2811_STRIP_GRB]
+            self.strip_types[STRIP_TYPE]
         )
         self.strips.append(strip)
 

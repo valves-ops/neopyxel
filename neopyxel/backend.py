@@ -82,4 +82,50 @@ class ArduinoRelayBackend(NeopyxelBackend):
         self.__conn.close()
 
 
-# class RaspberryPiBackend(NeopyxelBackend):
+class RaspberryPiBackend(NeopyxelBackend):
+    def __init__(self, serial_port=None):
+        from rpi_ws281x import ws, Color, Adafruit_NeoPixel
+        self.strips = []
+        # TODO: auto DMA channel selector
+        # TODO: pin, DMA, pwm channel collision
+
+    # Raspberry Pi 4
+    # GPIO 12 -> PWM0_0 (Alternative Function 0) (PWM{block}_{channel})
+    # GPIO 13 -> PWM0_1 (Alternative Function 0)
+    # GPIO 18 -> PWM0_0 (Alternative Function 5)
+    # GPIO 19 -> PWM0_1 (Alternative Function 5)
+
+    def add_stripe(self, 
+                   NUMPIXELS,                     # Amount of pixels (LEDs) the strip contains
+                   PIN,                           # GPIO pin the strip is connected to (must be PWM pin, RPi4: 12, 13, 18, 19)
+                   FREQUENCY_HZ=800000,           # PWM Frequency the strip operates in
+                   DMA_CHANNEL=10,                # DMA Channel (1 to 14) 
+                   PWM_CHANNEL=0,                 # PWM Channel (0 or 1)
+                   BRIGHTNESS=128,                # For strips that support brightness control (0 to 255)
+                   INVERT=False,                  # If using a level shifter that causes signal inversion, set this to true
+                   STRIP_TYPE='WS2811_STRIP_GRB', # Available types [WS2811_STRIP_GRB, ]
+                ):
+        strip = Adafruit_NeoPixel(
+            NUMPIXELS,
+            PIN, 
+            FREQUENCY_HZ,
+            DMA_CHANNEL, 
+            INVERT, 
+            BRIGHTNESS,
+            PWM_CHANNEL, 
+            STRIP_TYPE
+        )
+        self.strips.append(strip)
+
+    def flush_stripes(self):
+        self.strips = []
+
+    def set_pixel_color(self, strip_number, pixel_number, color):
+        color_object = Color(*color)
+        self.strips[strip_number].setPixelColor(pixel_number, color_object)
+
+    def show(self, strip_number):
+        self.strips[strip_number].show()
+
+    def __del__(self):
+        self.strips = []

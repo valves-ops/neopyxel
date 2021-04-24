@@ -22,22 +22,17 @@ fireplace_base = (252, 72, 12)
 cyberpunk = (19, 62, 124)
 red = (255, 0, 0)
 
-print('Setting color of first strip to red')
-for i in range(30):
-    print('Setting pixel ', i)
-    relay.__stripes[0].set_pixel_color(i, red)
-
-# try:
-#     # relay.execute_effect(Fireplace)
-#     relay.execute_effect(SteadyColor,
-#                          color=ambar,
-#                          StartTransition=expand.FromCenter,
-#                          StopTransition=expand.FromBorders
-#                         )
-#     while True:
-#         time.sleep(1)
-# except KeyboardInterrupt:
-#     relay.stop_effect()
-#     relay.flush_stripes()
-#     print("Ctrl+C pressed...exit")
-#     sys.exit(1)
+try:
+    # relay.execute_effect(Fireplace)
+    relay.execute_effect(SteadyColor,
+                         color=ambar,
+                         StartTransition=expand.FromCenter,
+                         StopTransition=expand.FromBorders
+                        )
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    relay.stop_effect()
+    relay.flush_stripes()
+    print("Ctrl+C pressed...exit")
+    sys.exit(1)

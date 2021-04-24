@@ -10,7 +10,7 @@ class NeopyxelBackend(ABC):
         pass
 
     @abstractmethod
-    def add_stripe(self, NUMPIXELS, PIN):
+    def add_stripe(self, NUMPIXELS, PIN, **kwargs):
         pass
 
     @abstractmethod

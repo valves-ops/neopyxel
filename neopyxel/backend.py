@@ -119,6 +119,7 @@ class RaspberryPiBackend(NeopyxelBackend):
             PWM_CHANNEL, 
             self.strip_types[STRIP_TYPE]
         )
+        strip.begin()
         self.strips.append(strip)
 
     def flush_stripes(self):
@@ -126,7 +127,8 @@ class RaspberryPiBackend(NeopyxelBackend):
 
     def set_pixel_color(self, strip_number, pixel_number, color):
         color_object = Color(*color)
-        self.strips[strip_number].setPixelColor(pixel_number, color_object)
+        strip = self.strips[strip_number]
+        strip.setPixelColor(pixel_number, color_object)
 
     def show(self, strip_number):
         self.strips[strip_number].show()
